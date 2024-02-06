@@ -12,6 +12,7 @@
 
 import {Calendar} from '@react-spectrum/calendar';
 import CalendarIcon from '@spectrum-icons/workflow/Calendar';
+import ExpressCalendarIcon from '@spectrum-icons/express/Calendar';
 import {classNames} from '@react-spectrum/utils';
 import {Content} from '@react-spectrum/view';
 import {DatePickerField} from './DatePickerField';
@@ -36,9 +37,10 @@ import {useFocusRing} from '@react-aria/focus';
 import {useFormProps} from '@react-spectrum/form';
 import {useHover} from '@react-aria/interactions';
 import {useLocale, useLocalizedStringFormatter} from '@react-aria/i18n';
-import {useProviderProps} from '@react-spectrum/provider';
+import {useProvider, useProviderProps} from '@react-spectrum/provider';
 
 function DatePicker<T extends DateValue>(props: SpectrumDatePickerProps<T>, ref: FocusableRef<HTMLElement>) {
+  const provider = useProvider();
   props = useProviderProps(props);
   props = useFormProps(props);
   let {
@@ -156,7 +158,7 @@ function DatePicker<T extends DateValue>(props: SpectrumDatePickerProps<T>, ref:
             UNSAFE_className={classNames(styles, 'spectrum-FieldButton')}
             isQuiet={isQuiet}
             validationState={validationState}>
-            <CalendarIcon />
+            {provider?.theme?.global?.express ? <ExpressCalendarIcon /> : <CalendarIcon />}
           </FieldButton>
           <Dialog UNSAFE_className={classNames(datepickerStyles, 'react-spectrum-Datepicker-dialog')} {...dialogProps}>
             <Content>
